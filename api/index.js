@@ -1,9 +1,10 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-
+import FarmRouter from "./routes/farm.route.js"
 import cookieParser from "cookie-parser";
 import path from "path";
+import cors from "cors"
 dotenv.config();
 
 mongoose
@@ -16,10 +17,10 @@ mongoose
   });
 
 // const __dirname = path.resolve();
-
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 
 app.use(cookieParser());
 
@@ -27,6 +28,8 @@ app.listen(3001, () => {
   console.log("Server is running on port 3001");
 });
 
+
+app.use("/api/farm", FarmRouter)
 
 
 // app.use(express.static(path.join(__dirname, "/client/dist")));
