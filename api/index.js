@@ -5,6 +5,7 @@ import FarmRouter from "./routes/farm.route.js"
 import cookieParser from "cookie-parser";
 import path from "path";
 import cors from "cors"
+import LivestockRouter from "./routes/Livestock.route.js";
 dotenv.config();
 
 mongoose
@@ -30,7 +31,7 @@ app.listen(3001, () => {
 
 
 app.use("/api/farm", FarmRouter)
-
+app.use("/api/Livestock", LivestockRouter)
 
 // app.use(express.static(path.join(__dirname, "/client/dist")));
 

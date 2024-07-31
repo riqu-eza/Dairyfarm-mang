@@ -1,37 +1,15 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
-  const navigate = useNavigate();
-
-  const handleSettingsClick = () => {
-    navigate('/settings'); // Adjust the path to your settings page
-  };
-
+  
   return (
-    <div className="bg-gray-100 min-h-screen p-4">
-      <div className="bg-white p-6 rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold mb-4">Farmer Dashboard</h2>
-        <div className="grid grid-cols-1 gap-4">
-          <div className="bg-green-500 text-white p-4 rounded-lg shadow">
-            <h3 className="text-lg font-bold">Farm Overview</h3>
-            <p className="text-sm">Details about the farm...</p>
-          </div>
-          <div className="bg-green-500 text-white p-4 rounded-lg shadow">
-            <h3 className="text-lg font-bold">Tasks</h3>
-            <p className="text-sm">List of tasks...</p>
-          </div>
-          <div className="bg-green-500 text-white p-4 rounded-lg shadow">
-            <h3 className="text-lg font-bold">Reports</h3>
-            <p className="text-sm">Reports and analytics...</p>
-          </div>
-        </div>
-        <button
-          onClick={handleSettingsClick}
-          className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4 w-full"
-        >
-          Settings
-        </button>
+    <div className="container mx-auto p-4">
+      <h1 className="text-3xl font-bold mb-6">Dairy Farm Management</h1>
+      <div className="flex flex-col gap-4">
+        <Link to="/view-livestock" className="bg-blue-500 text-white py-2 px-4 rounded-lg text-center">View Livestock</Link>
+        <Link to="/update-milk-production" className="bg-green-500 text-white py-2 px-4 rounded-lg text-center">Update Milk Production</Link>
+        <Link to="/manage-food-supply" className="bg-yellow-500 text-white py-2 px-4 rounded-lg text-center">Manage Food Supply</Link>
+        <Link to="/view-reports" className="bg-purple-500 text-white py-2 px-4 rounded-lg text-center">View Reports</Link>
       </div>
     </div>
   );
