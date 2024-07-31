@@ -19,3 +19,12 @@ export const create = async (req, res) => {
       res.status(500).json({ error: 'Internal Server Error' });
     }
   };
+
+  export const getAllLivestock = async (req, res, next) => {
+    try {
+      const livestock = await Livestock.find(); // Fetch all livestock from the database
+      res.status(200).json(livestock); // Send the data back in JSON format
+    } catch (error) {
+      next(error); // Pass any errors to the error-handling middleware
+    }
+  };
