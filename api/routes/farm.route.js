@@ -1,5 +1,5 @@
 import express from "express";
-import { signin, signup , subuser } from "../controllers/farm.contoller.mjs";
+import { signin, signup , subuser } from "../controllers/farm.contoller.js";
 
 const router = express.Router();
 

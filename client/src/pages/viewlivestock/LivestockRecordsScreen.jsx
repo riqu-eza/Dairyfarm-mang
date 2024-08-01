@@ -23,6 +23,17 @@ export default function LivestockRecordsScreen() {
     getLivestock();
   }, []);
 
+
+  const calculateAge = (dob) => {
+    const birthDate = new Date(dob);
+    const today = new Date();
+    const age = today.getFullYear() - birthDate.getFullYear();
+    const monthDifference = today.getMonth() - birthDate.getMonth();
+    if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+      return age - 1;
+    }
+    return age;
+  };
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 
@@ -35,24 +46,37 @@ export default function LivestockRecordsScreen() {
   };
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-6">Livestock Records</h1>
-      {/* Replace with dynamic content */}
-      <div className="p-4">
-        <h1 className="text-2xl font-bold mb-4">Livestock List</h1>
-        <ul>
-          {livestock.length === 0 ? (
-            <p>No livestock found</p>
-          ) : (
-            livestock.map((item) => (
-              <li key={item._id} className="border p-4 mb-4 rounded">
-                <h2 className="text-xl font-semibold">{item.name}</h2>
-                <p>Type: {item.Breed}</p>
-                <p>Age: {item.age}</p>
-              </li>
-            ))
-          )}
-        </ul>
+            <div className="p-4">
+      <h1 className="text-2xl font-bold mb-4">Livestock List</h1>
+      <div className="overflow-x-auto">
+        <table className="min-w-full border-collapse block lg:table">
+          <thead className="block lg:table-header-group">
+            <tr className="border border-gray-300 lg:border-none block lg:table-row absolute -top-full lg:top-auto -left-full lg:left-auto lg:relative">
+              <th className="bg-gray-200 p-2 text-left lg:border lg:border-gray-300 block lg:table-cell">#</th>
+              <th className="bg-gray-200 p-2 text-left lg:border lg:border-gray-300 block lg:table-cell">Name</th>
+              <th className="bg-gray-200 p-2 text-left lg:border lg:border-gray-300 block lg:table-cell">Type</th>
+              <th className="bg-gray-200 p-2 text-left lg:border lg:border-gray-300 block lg:table-cell">Age (years)</th>
+            </tr>
+          </thead>
+          <tbody className="block lg:table-row-group">
+            {livestock.length === 0 ? (
+              <tr className="bg-white border border-gray-300 lg:border-none block lg:table-row">
+                <td colSpan="4" className="p-2 text-center lg:border lg:border-gray-300 block lg:table-cell">No livestock found</td>
+              </tr>
+            ) : (
+              livestock.map((item, index) => (
+                <tr key={item._id} className="bg-white border border-gray-300 lg:border-none block lg:table-row">
+                  <td className="p-2 text-left lg:border lg:border-gray-300 block lg:table-cell">{index + 1}</td>
+                  <td className="p-2 text-left lg:border lg:border-gray-300 block lg:table-cell">{item.name}</td>
+                  <td className="p-2 text-left lg:border lg:border-gray-300 block lg:table-cell">{item.Breed}</td>
+                  <td className="p-2 text-left lg:border lg:border-gray-300 block lg:table-cell">{calculateAge(item.age)}</td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
       </div>
+    </div>
       <div>
         <button
           onClick={handleAddLivestock}
