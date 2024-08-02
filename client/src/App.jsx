@@ -6,6 +6,7 @@ import Dashboard from "./pages/Dashboard";
 import CreateUserForm from "./components/setting";
 import LivestockRecordsScreen from "./pages/viewlivestock/LivestockRecordsScreen";
 import UpdateMilkProductionScreen from "./pages/UpdateMilkProduction/UpdateMilkProductionScreen";
+import FoodSupplyManager from "./pages/ManageFoodSupply/ManageFoodSupplyScreen";
 
 export default function App() {
   return (
@@ -24,9 +25,19 @@ export default function App() {
         <Route path="/settings" element={<CreateUserForm />}>
           {" "}
         </Route>
-        <Route path="/view-livestock"element={<LivestockRecordsScreen/>}></Route> 
-<Route path="/update-milk-production" element={<UpdateMilkProductionScreen/>} >   </Route>
-        
+        <Route
+          path="/view-livestock"
+          element={<LivestockRecordsScreen />}
+        ></Route>
+        <Route
+          path="/update-milk-production"
+          element={<UpdateMilkProductionScreen />}
+        >
+          {" "}
+        </Route>
+        <Route path="/manage-food-supply" element={<FoodSupplyManager />}>
+          {" "}
+        </Route>
       </Routes>
     </BrowserRouter>
   );

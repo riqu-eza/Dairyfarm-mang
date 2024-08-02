@@ -7,6 +7,7 @@ import path from "path";
 import cors from "cors"
 import LivestockRouter from "./routes/Livestock.route.js";
 import ProductionRouter from "./routes/milkproduction.route.js";
+import FoodSupplyRouter from "./routes/foodsupply.route.js";
 dotenv.config();
 
 mongoose
@@ -34,6 +35,7 @@ app.listen(3001, () => {
 app.use("/api/farm", FarmRouter)
 app.use("/api/Livestock", LivestockRouter)
 app.use("/api/milk-production", ProductionRouter)
+app.use("/api/food-supply", FoodSupplyRouter)
 
 // app.use(express.static(path.join(__dirname, "/client/dist")));
 

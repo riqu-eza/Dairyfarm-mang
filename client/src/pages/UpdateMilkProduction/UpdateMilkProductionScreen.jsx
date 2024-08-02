@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import UpdateMilkProductionDetailScreen from './UpdateMilkProductionDetailScreen';
+import CalendarWithSchedules from './CalendarWithSchedules';
 
 export default function MainComponent() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -13,6 +14,8 @@ export default function MainComponent() {
   };
 
   return (
+    <>
+    <CalendarWithSchedules/>
     <div className="container mx-auto p-4">
       <button 
         onClick={openModal} 
@@ -35,5 +38,6 @@ export default function MainComponent() {
         </div>
       )}
     </div>
+    </>
   );
 }
