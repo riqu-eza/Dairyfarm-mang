@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import FeedFoodSupply from "./UpdateFoodSupply";
 
 const FoodSupplyManager = () => {
@@ -17,23 +17,25 @@ const FoodSupplyManager = () => {
 
   const fetchFoodSupply = async () => {
     try {
-        const response = await fetch('http://localhost:3001/api/food-supply/getall');
-        const data = await response.json();
+      const response = await fetch(
+        "http://localhost:3001/api/food-supply/getall"
+      );
+      const data = await response.json();
 
-        // Organize records by type
-        const organizedData = data.reduce((acc, record) => {
-            if (!acc[record.type]) {
-                acc[record.type] = [];
-            }
-            acc[record.type].push(record);
-            return acc;
-        }, {});
+      // Organize records by type
+      const organizedData = data.reduce((acc, record) => {
+        if (!acc[record.type]) {
+          acc[record.type] = [];
+        }
+        acc[record.type].push(record);
+        return acc;
+      }, {});
 
-        setFoodSupply(organizedData);
+      setFoodSupply(organizedData);
     } catch (error) {
-        console.error('Error fetching food supply:', error);
+      console.error("Error fetching food supply:", error);
     }
-};
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -42,6 +44,14 @@ const FoodSupplyManager = () => {
       [name]: value,
     });
   };
+
+  function truncateDescription(description, wordLimit = 3) {
+    const words = description.split(" ");
+    if (words.length <= wordLimit) {
+      return description;
+    }
+    return words.slice(0, wordLimit).join(" ") + "...";
+  }
 
   const handleAddRecord = async () => {
     try {
@@ -160,36 +170,47 @@ const FoodSupplyManager = () => {
       </form>
 
       <div className="container mx-auto p-4">
-            <h2 className="text-2xl font-bold mb-4">Food Supply Manager</h2>
-            
-            <h3 className="text-xl font-semibold mb-2">Food Supply Records</h3>
-            {Object.entries(foodSupply).map(([type, records]) => (
-                <div key={type} className="mb-4">
-                    <h4 className="text-lg font-semibold mb-2">{type.charAt(0).toUpperCase() + type.slice(1)}</h4>
-                    <table className="min-w-full divide-y divide-gray-200">
-                        <thead className="bg-gray-50">
-                            <tr>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Quantity</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nutritional Content</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cost</th>
-                            </tr>
-                        </thead>
-                        <tbody className="bg-white divide-y divide-gray-200">
-                            {records.map((record, index) => (
-                                <tr key={index}>
-                                    <td className="px-6 py-4 whitespace-nowrap">{record.description}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap">{record.quantity}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap">{record.nutritionalContent}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap">{record.cost}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            ))}
-        </div>
-        <FeedFoodSupply/>
+        <h3 className="text-xl font-semibold mb-2">Food Supply Records</h3>
+        {Object.entries(foodSupply).map(([type, records]) => (
+          <div key={type} className="mb-4">
+            <h4 className="text-lg font-semibold mb-2">
+              {type.charAt(0).toUpperCase() + type.slice(1)}
+            </h4>
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Description
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Quantity
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Nutritional Content
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Cost
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200 max-w-screen-sm ">
+                {records.map((record, index) => (
+                  <tr key={index}>
+                  <React.Fragment>
+                    <td className="px-6 py-4 whitespace-nowrap">{truncateDescription(record.description)}</td>
+                    <td className="px-6 py-4 whitespace-nowrap">{record.quantity}</td>
+                    <td className="px-6 py-4 whitespace-nowrap">{record.nutritionalContent}</td>
+                    <td className="px-6 py-4 whitespace-nowrap">{record.cost}</td>
+                  </React.Fragment>
+                </tr>
+                
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ))}
+      </div>
+      <FeedFoodSupply />
     </div>
   );
 };

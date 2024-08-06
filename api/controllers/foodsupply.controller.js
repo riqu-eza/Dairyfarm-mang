@@ -34,7 +34,7 @@ export const feedFoodSupply = async (req, res) => {
 
     try {
         // Find the record by type and description
-        const record = await FoodSupply.findOne({ type, description });
+        const record = await FoodSupply.findOne({ type,  });
         
         if (!record) {
             return res.status(404).json({ message: 'Record not found' });

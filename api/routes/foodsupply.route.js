@@ -3,8 +3,8 @@ import { createFoodSupplyRecord, feedFoodSupply, getFoodSupply } from "../contro
 
 const router = express.Router();
 
-router.post("/create", createFoodSupplyRecord )
-router.get("/getall", getFoodSupply)
-router.post("/update", feedFoodSupply)
+router.post("/create", createFoodSupplyRecord );
+router.get("/getall", getFoodSupply);
+router.post("/update", feedFoodSupply);
 
 export default router;
